@@ -1,5 +1,7 @@
 package com.week5.homework.persistence.model;
 
+import com.week5.homework.beanvalidation.constraints.PhonePattern;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
@@ -15,6 +17,7 @@ public class Users {
     private Long id;
 
     @Id
+    @Column(unique = true)
     @NotNull(message = "email Adress can not be taken as Null")
     @NotBlank(message = "email Adress can not be left Blank")
     @Email(message = "Not a Valid Email Adress Format")
@@ -22,15 +25,18 @@ public class Users {
 
     @NotNull(message = "firstName is Required and can Not be taken As Null")
     @NotBlank(message = "firstName can not be left Blank")
+    @Size(max = 50)
     private String firstName;
 
     @NotNull(message = "lastName is Required and can Not be taken As Null")
     @NotBlank(message = "lastName  Name can not be left Blank")
+    @Size(max = 50)
     private String lastName;
 
     @NotNull(message = "phoneNumber is Required and can Not be taken As Null")
     @NotBlank(message = "phoneNumber Name can not be left Blank")
     @Size(min = 12,max = 12,message = "phoneNumber value must be of 12 character of length")
+    @PhonePattern
     private String phoneNumber;
 
     public Users(){}

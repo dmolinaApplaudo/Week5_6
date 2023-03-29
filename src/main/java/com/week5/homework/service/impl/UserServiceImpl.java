@@ -1,5 +1,6 @@
 package com.week5.homework.service.impl;
 
+import com.week5.homework.exception.UserAlreadyExistsException;
 import com.week5.homework.persistence.model.Users;
 import com.week5.homework.persistence.repository.IUserRepository;
 import com.week5.homework.service.IUserService;
@@ -23,6 +24,18 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void createUser(Users users) {
-        userRepository.save(users);
+        if(!userRepository.existsById(users.getEmail())){
+            userRepository.save(users);
+        }else {
+            String msg = "The user with the email account: "+ users.getEmail()+ "already exists";
+            throw new UserAlreadyExistsException(msg);
+        }
+
+        Iterable<Users> usersIterable = userRepository.findAll();
+        System.out.println("*****************");
+        for (Users person :
+                usersIterable) {
+            System.out.println(person);
+        }
     }
 }
