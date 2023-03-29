@@ -20,4 +20,9 @@ public class UserServiceImpl implements IUserService {
     public Optional<User> findByEmail(String email) {
         return userRepository.findById(email);
     }
+
+    @Override
+    public void createUser(User user) {
+        userRepository.save(user);
+    }
 }
