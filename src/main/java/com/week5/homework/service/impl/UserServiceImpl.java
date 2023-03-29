@@ -6,7 +6,9 @@ import com.week5.homework.persistence.repository.IUserRepository;
 import com.week5.homework.service.IUserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -30,12 +32,14 @@ public class UserServiceImpl implements IUserService {
             String msg = "The user with the email account: "+ users.getEmail()+ " already exists";
             throw new UserAlreadyExistsException(msg);
         }
-
-        Iterable<Users> usersIterable = userRepository.findAll();
-        System.out.println("*****************");
-        for (Users person :
-                usersIterable) {
-            System.out.println(person);
-        }
     }
+
+    @Override
+    public List<Users> findAll() {
+        return StreamSupport
+                .stream(userRepository.findAll().spliterator(),false)
+                .toList();
+    }
+
+
 }
