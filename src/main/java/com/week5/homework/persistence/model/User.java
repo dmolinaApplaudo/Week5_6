@@ -8,9 +8,9 @@ import java.util.Random;
 
 @Entity
 public class User {
-    @Id
     private Long id;
 
+    @Id
     private String email;
 
     private String firstName;
