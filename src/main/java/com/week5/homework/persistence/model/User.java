@@ -2,6 +2,10 @@ package com.week5.homework.persistence.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 import java.util.Random;
@@ -11,12 +15,22 @@ public class User {
     private Long id;
 
     @Id
+    @NotNull(message = "email Adress can not be taken as Null")
+    @NotBlank(message = "email Adress can not be left Blank")
+    @Email(message = "Not a Valid Email Adress Format")
     private String email;
 
+    @NotNull(message = "firstName is Required and can Not be taken As Null")
+    @NotBlank(message = "firstName can not be left Blank")
     private String firstName;
 
+    @NotNull(message = "lastName is Required and can Not be taken As Null")
+    @NotBlank(message = "lastName  Name can not be left Blank")
     private String lastName;
 
+    @NotNull(message = "phoneNumber is Required and can Not be taken As Null")
+    @NotBlank(message = "phoneNumber Name can not be left Blank")
+    @Size(min = 12,max = 12,message = "phoneNumber value must be of 12 character of length")
     private String phoneNumber;
 
     public User(Long id, String email, String firstName, String lastName, String phoneNumber) {
