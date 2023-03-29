@@ -1,6 +1,6 @@
 package com.week5.homework.web.controller;
 
-import com.week5.homework.persistence.model.User;
+import com.week5.homework.persistence.model.Users;
 import com.week5.homework.service.IUserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createUser(@Valid @RequestBody User user){
-        userService.createUser(user);
+    public void createUser(@Valid @RequestBody Users users){
+        userService.createUser(users);
     }
 
 }

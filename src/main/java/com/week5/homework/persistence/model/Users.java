@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Random;
 
 @Entity
-public class User {
+public class Users {
     private Long id;
 
     @Id
@@ -33,7 +33,9 @@ public class User {
     @Size(min = 12,max = 12,message = "phoneNumber value must be of 12 character of length")
     private String phoneNumber;
 
-    public User(Long id, String email, String firstName, String lastName, String phoneNumber) {
+    public Users(){}
+
+    public Users(Long id, String email, String firstName, String lastName, String phoneNumber) {
         if (Objects.isNull(id)) {
             id = new Random().nextLong();
         }
@@ -44,7 +46,7 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public User(String email, String firstName, String lastName, String phoneNumber) {
+    public Users(String email, String firstName, String lastName, String phoneNumber) {
         this.id = new Random().nextLong();
         this.email = email;
         this.firstName = firstName;
@@ -96,8 +98,8 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id.equals(user.id) && email.equals(user.email) && firstName.equals(user.firstName) && lastName.equals(user.lastName) && phoneNumber.equals(user.phoneNumber);
+        Users users = (Users) o;
+        return id.equals(users.id) && email.equals(users.email) && firstName.equals(users.firstName) && lastName.equals(users.lastName) && phoneNumber.equals(users.phoneNumber);
     }
 
     @Override
