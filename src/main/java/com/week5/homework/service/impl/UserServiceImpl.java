@@ -27,7 +27,7 @@ public class UserServiceImpl implements IUserService {
         if(!userRepository.existsById(users.getEmail())){
             userRepository.save(users);
         }else {
-            String msg = "The user with the email account: "+ users.getEmail()+ "already exists";
+            String msg = "The user with the email account: "+ users.getEmail()+ " already exists";
             throw new UserAlreadyExistsException(msg);
         }
 
