@@ -1,9 +1,11 @@
 package com.week5.homework.service;
 
-import com.week5.homework.persistence.model.User;
+import com.week5.homework.persistence.model.Users;
 
 import java.util.Optional;
 
 public interface IUserService {
-    Optional<User> findByEmail(String email);
+    Optional<Users> findByEmail(String email);
+
+    void createUser(Users users);
 }
