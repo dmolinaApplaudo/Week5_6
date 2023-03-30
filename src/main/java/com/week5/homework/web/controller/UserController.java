@@ -1,7 +1,7 @@
 package com.week5.homework.web.controller;
 
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
-import com.week5.homework.exception.UserAlreadyExistsException;
+import com.week5.homework.exception.UserNotFoundException;
 import com.week5.homework.persistence.model.Users;
 import com.week5.homework.service.IUserService;
 import jakarta.validation.Valid;
@@ -33,6 +33,10 @@ public class UserController {
         userService.createUser(users);
     }
 
+    public Users findUserByEmail(String email){
+        return userService.findByEmail(email);
+    }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Users> findAll(){
@@ -62,8 +66,8 @@ public class UserController {
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler({UserAlreadyExistsException.class})
-    public Map<String, String> handleExistingUserError(UserAlreadyExistsException ex) {
+    @ExceptionHandler({UserNotFoundException.class})
+    public Map<String, String> handleExistingUserError(UserNotFoundException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("email", ex.getMessage());
         return errors;
