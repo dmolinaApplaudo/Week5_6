@@ -46,5 +46,14 @@ public class UserServiceImpl implements IUserService {
                 .toList();
     }
 
+    @Override
+    public void updateUser(Users users) {
+        if(userRepository.existsById(users.getEmail())){
+            userRepository.save(users);
+        }else {
+            throw new UserNotFoundException("User with email: "+users.getEmail()+" Doesn't Exists");
+        }
+    }
+
 
 }

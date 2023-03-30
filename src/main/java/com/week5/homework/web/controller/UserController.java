@@ -28,7 +28,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
+    @PostMapping(value = "/")
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@Valid @RequestBody Users users){
         userService.createUser(users);
@@ -38,6 +38,12 @@ public class UserController {
     @ResponseBody
     public Users findUserByEmail(@RequestBody EmailRequestBody email){
         return userService.findByEmail(email.getEmail());
+    }
+
+    @PutMapping(value = "/")
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@Valid @RequestBody Users users){
+
     }
 
     @GetMapping

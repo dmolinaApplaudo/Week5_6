@@ -10,4 +10,7 @@ public interface IUserService {
     void createUser(Users users);
 
     List<Users> findAll();
+
+    void updateUser(Users users);
+
 }
