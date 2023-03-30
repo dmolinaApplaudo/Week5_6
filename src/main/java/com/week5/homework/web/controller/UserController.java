@@ -43,7 +43,7 @@ public class UserController {
     @PutMapping(value = "/")
     @ResponseStatus(HttpStatus.OK)
     public void update(@Valid @RequestBody Users users){
-
+        userService.updateUser(users);
     }
 
     @GetMapping
