@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import com.week5.homework.exception.UserNotFoundException;
 import com.week5.homework.persistence.model.Users;
 import com.week5.homework.service.IUserService;
+import com.week5.homework.web.controller.requestbody.EmailRequestBody;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,8 +34,10 @@ public class UserController {
         userService.createUser(users);
     }
 
-    public Users findUserByEmail(String email){
-        return userService.findByEmail(email);
+    @GetMapping(value = "/")
+    @ResponseBody
+    public Users findUserByEmail(@RequestBody EmailRequestBody email){
+        return userService.findByEmail(email.getEmail());
     }
 
     @GetMapping

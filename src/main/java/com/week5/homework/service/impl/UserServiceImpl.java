@@ -24,7 +24,7 @@ public class UserServiceImpl implements IUserService {
     public Users findByEmail(String email) {
         Optional<Users> user = userRepository.findById(email);
         if (user.isEmpty()){
-           throw new UserNotFoundException("User with email: "+email+"Doesn't Exists");
+           throw new UserNotFoundException("User with email: "+email+" Doesn't Exists");
         }
         return user.get();
     }
