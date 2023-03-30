@@ -39,7 +39,9 @@ public class Users {
     @PhonePattern
     private String phoneNumber;
 
-    public Users(){}
+    public Users(){
+        this.id = new Random().nextLong();
+    }
 
     public Users(Long id, String email, String firstName, String lastName, String phoneNumber) {
         if (Objects.isNull(id)) {
