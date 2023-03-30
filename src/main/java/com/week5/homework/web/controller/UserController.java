@@ -1,9 +1,10 @@
 package com.week5.homework.web.controller;
 
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
-import com.week5.homework.exception.UserAlreadyExistsException;
+import com.week5.homework.exception.UserNotFoundException;
 import com.week5.homework.persistence.model.Users;
 import com.week5.homework.service.IUserService;
+import com.week5.homework.web.controller.requestbody.EmailRequestBody;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,10 +28,22 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
+    @PostMapping(value = "/")
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@Valid @RequestBody Users users){
         userService.createUser(users);
+    }
+
+    @GetMapping(value = "/")
+    @ResponseBody
+    public Users findUserByEmail(@RequestBody EmailRequestBody email){
+        return userService.findByEmail(email.getEmail());
+    }
+
+    @PutMapping(value = "/")
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@Valid @RequestBody Users users){
+        userService.updateUser(users);
     }
 
     @GetMapping
@@ -62,8 +75,8 @@ public class UserController {
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler({UserAlreadyExistsException.class})
-    public Map<String, String> handleExistingUserError(UserAlreadyExistsException ex) {
+    @ExceptionHandler({UserNotFoundException.class})
+    public Map<String, String> handleExistingUserError(UserNotFoundException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("email", ex.getMessage());
         return errors;

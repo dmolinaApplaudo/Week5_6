@@ -1,6 +1,7 @@
 package com.week5.homework.service.impl;
 
 import com.week5.homework.exception.UserAlreadyExistsException;
+import com.week5.homework.exception.UserNotFoundException;
 import com.week5.homework.persistence.model.Users;
 import com.week5.homework.persistence.repository.IUserRepository;
 import com.week5.homework.service.IUserService;
@@ -20,8 +21,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public Optional<Users> findByEmail(String email) {
-        return userRepository.findById(email);
+    public Users findByEmail(String email) {
+        Optional<Users> user = userRepository.findById(email);
+        if (user.isEmpty()){
+           throw new UserNotFoundException("User with email: "+email+" Doesn't Exists");
+        }
+        return user.get();
     }
 
     @Override
@@ -39,6 +44,15 @@ public class UserServiceImpl implements IUserService {
         return StreamSupport
                 .stream(userRepository.findAll().spliterator(),false)
                 .toList();
+    }
+
+    @Override
+    public void updateUser(Users users) {
+        if(userRepository.existsById(users.getEmail())){
+            userRepository.save(users);
+        }else {
+            throw new UserNotFoundException("User with email: "+users.getEmail()+" Doesn't Exists");
+        }
     }
 
 
