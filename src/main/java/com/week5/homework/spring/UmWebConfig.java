@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.List;
 
 @Configuration
-@PropertySource("classpath:webconfig-local.properties")
+@PropertySource("classpath:webconfig-${persistenceTarget:local}.properties")
 @ComponentScan({"com.week5.homework.web"})
 @EnableWebMvc
 public class UmWebConfig implements WebMvcConfigurer {
@@ -23,6 +23,7 @@ public class UmWebConfig implements WebMvcConfigurer {
     boolean identedOutput ;
     @Value("${jackson.deserialization.unknownfeature}")
     boolean acceptUnknownProperties;
+
     public UmWebConfig() {
         super();
     }
