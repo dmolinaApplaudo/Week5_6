@@ -1,7 +1,7 @@
 package com.week5.homework.web.controller;
 
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
-import com.week5.homework.exception.UserNotFoundException;
+import com.week5.homework.exception.AbstractUserException;
 import com.week5.homework.persistence.model.Users;
 import com.week5.homework.service.IUserService;
 import com.week5.homework.web.controller.requestbody.EmailRequestBody;
@@ -75,8 +75,8 @@ public class UserController {
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler({UserNotFoundException.class})
-    public Map<String, String> handleExistingUserError(UserNotFoundException ex) {
+    @ExceptionHandler({AbstractUserException.class})
+    public Map<String, String> handleExistingUserError(AbstractUserException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("email", ex.getMessage());
         return errors;
